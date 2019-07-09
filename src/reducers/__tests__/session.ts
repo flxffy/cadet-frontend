@@ -7,7 +7,8 @@ import {
   UPDATE_ASSESSMENT_OVERVIEWS,
   UPDATE_GRADING,
   UPDATE_GRADING_OVERVIEWS,
-  UPDATE_HISTORY_HELPERS
+  UPDATE_HISTORY_HELPERS,
+  STORE_ASSESSMENT_PASSWORD
 } from '../../actions/actionTypes';
 import { Grading, GradingOverview } from '../../components/academy/grading/gradingShape';
 import {
@@ -72,6 +73,22 @@ test('SET_USER works correctly', () => {
     ...defaultSession,
     ...payload
   });
+});
+
+test('STORE_ASSESSMENT_PASSWORD works correctly in updating assessment password', () => {
+  const newDefaultSession = {
+    ...defaultSession
+  };
+
+  const password = 'password';
+
+  const action = {
+    type: STORE_ASSESSMENT_PASSWORD,
+    payload: 'password'
+  };
+  const result: ISessionState = reducer(newDefaultSession, action);
+
+  expect(result.assessmentPassword).toEqual(password);
 });
 
 test('UPDATE_HISTORY_HELPERS works on non-academy location', () => {
