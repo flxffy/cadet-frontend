@@ -132,3 +132,10 @@ export const unsubmitSubmission: ActionCreator<actionTypes.IAction> = (submissio
     submissionId
   }
 });
+
+export const storeAssessmentPassword: ActionCreator<actionTypes.IAction> = (
+  password: string | null
+) => ({
+  type: actionTypes.STORE_ASSESSMENT_PASSWORD,
+  payload: password
+});
