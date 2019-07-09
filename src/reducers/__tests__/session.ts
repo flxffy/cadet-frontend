@@ -3,12 +3,12 @@ import {
   LOG_OUT,
   SET_TOKENS,
   SET_USER,
+  STORE_ASSESSMENT_PASSWORD,
   UPDATE_ASSESSMENT,
   UPDATE_ASSESSMENT_OVERVIEWS,
   UPDATE_GRADING,
   UPDATE_GRADING_OVERVIEWS,
-  UPDATE_HISTORY_HELPERS,
-  STORE_ASSESSMENT_PASSWORD
+  UPDATE_HISTORY_HELPERS
 } from '../../actions/actionTypes';
 import { Grading, GradingOverview } from '../../components/academy/grading/gradingShape';
 import {
