@@ -56,6 +56,13 @@ export const Academy: React.SFC<IAcademyProps> = props => (
         )}/${assessmentRegExp}`}
         render={assessmentRenderFactory(AssessmentCategories.Sidequest)}
       />
+      <Route
+        path={`/academy/${assessmentCategoryLink(
+          AssessmentCategories.Practical
+        )}/${assessmentRegExp}`}
+        render={assessmentRenderFactory(AssessmentCategories.Practical)}
+      />
+
       <Route path={`/academy/grading/${gradingRegExp}`} component={Grading} />
       <Route exact={true} path="/academy" component={dynamicRedirect(props)} />
       <Route component={redirectTo404} />

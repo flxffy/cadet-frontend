@@ -52,6 +52,15 @@ const NavigationBar: React.SFC<NavigationBarProps> = props => (
         <Icon icon={IconNames.COMPARISON} />
         <div className="navbar-button-text hidden-xs">Contests</div>
       </NavLink>
+
+      <NavLink
+        to={`/academy/${assessmentCategoryLink(AssessmentCategories.Practical)}`}
+        activeClassName={Classes.ACTIVE}
+        className={classNames('NavigationBar__link', Classes.BUTTON, Classes.MINIMAL)}
+      >
+        <Icon icon={IconNames.COMPARISON} />
+        <div className="navbar-button-text hidden-xs">Practical</div>
+      </NavLink>
     </NavbarGroup>
     {props.role === Role.Admin || props.role === Role.Staff ? (
       <NavbarGroup align={Alignment.RIGHT}>
