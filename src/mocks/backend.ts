@@ -42,6 +42,23 @@ export function* mockBackendSaga(): SagaIterator {
 
   yield takeEvery(actionTypes.FETCH_ASSESSMENT, function*(action) {
     const id = (action as actionTypes.IAction).payload;
+    const password = 'password';
+    if (id === 5) {
+      /* Practical password test */
+      let input: string | null = '';
+      while (input !== password) {
+        input = window.prompt('Please enter password', ' ');
+        if (!input) {
+          break;
+        }
+      }
+
+      if (!input) {
+        history.goBack();
+        return;
+      }
+    }
+
     const assessment = mockAssessments[id];
     yield put(actions.updateAssessment({ ...assessment }));
   });

@@ -87,8 +87,14 @@ function* backendSaga(): SagaIterator {
       refreshToken: state.session.refreshToken
     }));
     const id = (action as actionTypes.IAction).payload;
-    const assessment: IAssessment = yield call(getAssessment, id, tokens);
+    const { assessment, password } = yield call(
+      getAssessment,
+      id,
+      tokens,
+      yield select((state: IState) => state.session.assessmentPassword)
+    );
     if (assessment) {
+      yield put(actions.storeAssessmentPassword(password));
       yield put(actions.updateAssessment(assessment));
     }
   });
@@ -359,16 +365,25 @@ async function getAssessmentOverviews(tokens: Tokens): Promise<IAssessmentOvervi
 /**
  * GET /assessments/${assessmentId}
  */
-async function getAssessment(id: number, tokens: Tokens): Promise<IAssessment | null> {
-  const response = await request(`assessments/${id}`, 'GET', {
+async function getAssessment(
+  id: number,
+  tokens: Tokens,
+  password: string | null
+): Promise<{ assessment: IAssessment | null; password: string | null }> {
+  const response = await request(`assessments/${id}`, 'POST', {
     accessToken: tokens.accessToken,
     refreshToken: tokens.refreshToken,
-    shouldRefresh: true
+    body: {
+      password
+    },
+    shouldRefresh: false,
+    shouldAutoLogout: false
   });
+  let assessment: IAssessment | null = null;
   if (response && response.ok) {
-    const assessment = (await response.json()) as IAssessment;
-    // backend has property ->     type: 'mission' | 'sidequest' | 'path' | 'contest'
-    //              we have -> category: 'Mission' | 'Sidequest' | 'Path' | 'Contest'
+    assessment = (await response.json()) as IAssessment;
+    // backend has property ->     type: 'mission' | 'sidequest' | 'path' | 'contest' | 'Practical
+    //              we have -> category: 'Mission' | 'Sidequest' | 'Path' | 'Contest' | 'Practical'
     assessment.category = capitalise((assessment as any).type) as AssessmentCategory;
     delete (assessment as any).type;
     assessment.questions = assessment.questions.map(q => {
@@ -392,9 +407,18 @@ async function getAssessment(id: number, tokens: Tokens): Promise<IAssessment | 
       });
       return q;
     });
-    return assessment;
+    return { assessment, password };
+  } else if (response && response.status === 403) {
+    const input = window.prompt('Please enter password.', '');
+    if (!input) {
+      history.goBack();
+      return { assessment, password };
+    }
+    return getAssessment(id, tokens, input);
   } else {
-    return null;
+    history.goBack();
+    handleResponseError(response);
+    return { assessment, password };
   }
 }
 
