@@ -28,7 +28,7 @@ exports[`Grading NavLink does NOT renders for Role.Student 1`] = `
       </div>
     </NavLink>
     <NavLink to=\\"/academy/practicals\\" activeClassName=\\"bp3-active\\" className=\\"NavigationBar__link bp3-button bp3-minimal\\" aria-current=\\"page\\">
-      <Blueprint3.Icon icon=\\"comparison\\" />
+      <Blueprint3.Icon icon=\\"manual\\" />
       <div className=\\"navbar-button-text hidden-xs\\">
         Practical
       </div>
@@ -65,7 +65,7 @@ exports[`Grading NavLink renders for Role.Admin 1`] = `
       </div>
     </NavLink>
     <NavLink to=\\"/academy/practicals\\" activeClassName=\\"bp3-active\\" className=\\"NavigationBar__link bp3-button bp3-minimal\\" aria-current=\\"page\\">
-      <Blueprint3.Icon icon=\\"comparison\\" />
+      <Blueprint3.Icon icon=\\"manual\\" />
       <div className=\\"navbar-button-text hidden-xs\\">
         Practical
       </div>
@@ -110,7 +110,7 @@ exports[`Grading NavLink renders for Role.Staff 1`] = `
       </div>
     </NavLink>
     <NavLink to=\\"/academy/practicals\\" activeClassName=\\"bp3-active\\" className=\\"NavigationBar__link bp3-button bp3-minimal\\" aria-current=\\"page\\">
-      <Blueprint3.Icon icon=\\"comparison\\" />
+      <Blueprint3.Icon icon=\\"manual\\" />
       <div className=\\"navbar-button-text hidden-xs\\">
         Practical
       </div>
